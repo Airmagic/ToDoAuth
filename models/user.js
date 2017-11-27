@@ -1,6 +1,8 @@
 
+/* schema for the db for a user */
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
+
 
 var userSchema = new mongoose.Schema({
   local: {
@@ -9,15 +11,18 @@ var userSchema = new mongoose.Schema({
   }
 });
 
+
 userSchema.methods.generateHash = function(password) {
   // Create salted hash of plaintext password
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 }
 
+
 userSchema.methods.validPassword = function(password) {
   // Compare password to stored password
   return bcrypt.compareSync(password, this.local.password);
 }
+
 
 var User = mongoose.model('User', userSchema);
 

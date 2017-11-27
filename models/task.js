@@ -1,3 +1,4 @@
+/* this is the schema for when task are enter into the db */
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;

@@ -10,10 +10,12 @@
 
     <div class="navigation">
 		
+		<!-- if statement that is showen when user is logged in -->
 		{{#if username}}
 			<br>hello, {{username}}
 			<br><a href="/">To do tasks</a> <a href="/completed">Completed Tasks</a>
 			<br><a href='/auth/logout'>Logout</a>
+		<!-- statment that is displayed if no user is logged in -->
 		{{else}}
 			Sign in to create and manage ToDo items
 		</if>

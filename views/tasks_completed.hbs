@@ -1,6 +1,10 @@
+
+{{!-- shows tasked completed page --}}
 <div class="tasklist">
+  {{!-- each statement to print out completed tasked list --}}
   {{#each tasks}}
     <li> <a href="task/{{this._id}}">{{this.text}}</a> </li>
+	{{!-- shows if no tasked have the completed tasked part in them --}}
   {{else}}
     <P>No tasks have been completed!</P>
   {{/each}}

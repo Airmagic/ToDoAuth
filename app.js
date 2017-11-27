@@ -16,6 +16,7 @@ var passportConfig = require('./config/passport')(passport);
 
 var db_url = process.env.MONGO_URLTODOAUTH;
 
+
 mongoose.Promise = global.Promise;
 
 mongoose.connect(db_url, {useMongoClient: true })
@@ -47,7 +48,7 @@ app.use(session( {
   store: store
 }));
 
-
+/* using passport for password validation */
 app.use(passport.initialize());
 app.use(passport.session());
 

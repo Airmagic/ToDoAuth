@@ -1,3 +1,5 @@
+
+/* This is the page that routes the passwords passports so it is valided */
 var LocalStrategy = require('passport-local');
 
 var User = require('../models/user');

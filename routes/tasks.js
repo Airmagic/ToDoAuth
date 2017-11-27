@@ -23,6 +23,7 @@ router.use(isLoggedIn);
 /* GET home page with all incomplete tasks */
 router.get('/', function(req, res, next) {
   
+  /* finding if a user is loggined in */
   Task.find({ creator: req.user._id, completed: false})
 	.then( (docs) => {
 		res.render('index', {title: 'Incomplete Tasks', tasks: docs})
@@ -37,6 +38,7 @@ router.get('/', function(req, res, next) {
 /* GET details about one task */
 router.get('/task/:_id', function(req, res, next) {
   
+  /* looking for the user that is logged in  */
   Task.findOne({_id: req.params._id})
 	.then((task) => {
 		if (!task) {
@@ -58,7 +60,8 @@ router.get('/task/:_id', function(req, res, next) {
 
 /* GET completed tasks */
 router.get('/completed', function(req, res, next){
-  
+	
+  /* connecting the completed task with the user.  */
   Task.find({creator: req.user._id, completed:true} )
 	.then( (docs) => {
 		res.render('task_completed', { title: 'completed tasks', tasks: docs });
@@ -75,6 +78,7 @@ router.get('/completed', function(req, res, next){
 /* POST new task */
 router.post('/add', function(req, res, next){
   
+  /* errror if nothing is wrtien into the textbox */
   if (!req.body || !req.body.text) {
     //no task text info, redirect to home page with flash message
     req.flash('error', 'Where\'s the beef?');
@@ -99,6 +103,7 @@ router.post('/add', function(req, res, next){
 /* POST task done */
 router.post('/done', function(req, res, next){
   
+  /* finding the task and user who creatated it */
   Task.findOneAndUpdate( {creator: req.user._id, _id: req.body._id}, {$set: {completed: true}})
 	.then((updatedTask) => {
 		if (updatedTask) {
@@ -117,6 +122,7 @@ router.post('/done', function(req, res, next){
 /* POST all tasks done */
 router.post('/alldone', function(req, res, next) {
   
+	/* marking all tasked done under one user */
 	Task.updateMany({creator: req.user._id, completed: false }, {$set : {completed : true}})
 	.then((result) => {
 		console.log("How many documents were modified?", result.n);
@@ -132,7 +138,8 @@ router.post('/alldone', function(req, res, next) {
 
 /* POST task delete */
 router.post('/delete', function(req, res, next){
-
+	
+	/* deleting one task under a user */
 	Task.deleteOne({creator: req.user._id, _id : req.body._id })
 		.then((result) => {
 			if (result.deleteCount === 1) {
