@@ -64,7 +64,7 @@ router.get('/completed', function(req, res, next){
   /* connecting the completed task with the user.  */
   Task.find({creator: req.user._id, completed:true} )
 	.then( (docs) => {
-		res.render('task_completed', { title: 'completed tasks', tasks: docs });
+		res.render('tasks_completed', { title: 'completed tasks', tasks: docs });
 		})
 	.catch( (err) => {
     next(err);
